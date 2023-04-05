@@ -17,7 +17,7 @@ class Item < ApplicationRecord
   before_create do
     self.image = generate_image(self.title) if self.image == ""
   end
-  
+
   before_validation do
     self.slug ||= "#{title.to_s.parameterize}-#{rand(36**6).to_s(36)}"
   end
@@ -28,7 +28,7 @@ class Item < ApplicationRecord
 
     def generate_image(title)
       client = OpenAI::Client.new(access_token: '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')
-      response = client.images.generate(parameters: { prompt: title})
+      response = client.images.generate(parameters: { prompt: title, size: "256x256" })
       return response.dig("data", 0, "url")
     end
 end
