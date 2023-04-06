@@ -18,7 +18,4 @@ class Item < ApplicationRecord
     self.slug ||= "#{title.to_s.parameterize}-#{rand(36**6).to_s(36)}"
   end
 
-  before_create do
-    self.image = "../placeholder.png" if self.image == ""
-  end
 end
