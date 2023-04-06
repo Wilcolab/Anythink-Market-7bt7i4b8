@@ -19,7 +19,6 @@ class ItemsController < ApplicationController
     render json: {
       items: @items.map { |item|
         {
-          id: item.id,
           title: item.title,
           slug: item.slug,
           description: item.description,
