@@ -27,7 +27,7 @@ class Item < ApplicationRecord
   require 'openai'
 
     def generate_image(title)
-      client = OpenAI::Client.new(access_token: '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')
+      client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
       response = client.images.generate(parameters: { prompt: title, size: "256x256" })
       return response.dig("data", 0, "url")
     end
