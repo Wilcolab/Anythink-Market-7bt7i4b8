@@ -19,10 +19,11 @@ class ItemsController < ApplicationController
     render json: {
       items: @items.map { |item|
         {
+          id: item.id,
           title: item.title,
           slug: item.slug,
           description: item.description,
-          image: item.image,
+          image: (item.image == "" ? "../placeholder.png" : item.image),
           tagList: item.tags.map(&:name),
           createdAt: item.created_at,
           updatedAt: item.updated_at,
@@ -64,6 +65,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find_by!(slug: params[:slug])
+    @item.image = "../placeholder.png" if @item.image == ""
   end
 
   def update
