@@ -14,7 +14,21 @@ class Item < ApplicationRecord
   validates :description, presence: true, allow_blank: false
   validates :slug, uniqueness: true, exclusion: { in: ['feed'] }
 
+  before_create do
+    self.image = generate_image(self.title) if self.image == ""
+  end
+
   before_validation do
     self.slug ||= "#{title.to_s.parameterize}-#{rand(36**6).to_s(36)}"
   end
+
+  private
+
+  require 'openai'
+
+    def generate_image(title)
+      client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
+      response = client.images.generate(parameters: { prompt: title, size: "256x256" })
+      return response.dig("data", 0, "url")
+    end
 end
