@@ -18,12 +18,12 @@ class ItemsController < ApplicationController
 
     render json: {
       items: @items.map { |item|
-        item.image = '../placeholder.png' if item.image == ''
+        item.image = 'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=1380&t=st=1680808321~exp=1680808921~hmac=61d4f8108756d0df47dba91ded15be10ff539dd19a69bc625ce0fba5c8804543' if item.image == ''
         {
           title: item.title,
           slug: item.slug,
           description: item.description,
-          image: (item.image == "" ? "../placeholder.png" : item.image),
+          image: item.image,
           tagList: item.tags.map(&:name),
           createdAt: item.created_at,
           updatedAt: item.updated_at,
@@ -54,7 +54,7 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     @item.user = current_user
-    @item.image = '../placeholder.png' if @item.image == ''
+    @item.image = 'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=1380&t=st=1680808321~exp=1680808921~hmac=61d4f8108756d0df47dba91ded15be10ff539dd19a69bc625ce0fba5c8804543' if @item.image == ''
 
     if @item.save
       sendEvent("item_created", { item: item_params })
@@ -66,7 +66,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find_by!(slug: params[:slug])
-    @item.image = '../placeholder.png' if @item.image == ''
+    @item.image = 'https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg?w=1380&t=st=1680808321~exp=1680808921~hmac=61d4f8108756d0df47dba91ded15be10ff539dd19a69bc625ce0fba5c8804543' if @item.image == ''
   end
 
   def update
