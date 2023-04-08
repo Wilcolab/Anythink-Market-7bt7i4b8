@@ -20,6 +20,8 @@ Rails.application.routes.draw do
       get :feed, on: :collection
     end
 
+    get 
+
     resources :tags, only: [:index]
 
     resources :ping, only: [:index]
