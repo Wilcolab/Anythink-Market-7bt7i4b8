@@ -18,6 +18,9 @@ class ItemsController < ApplicationController
 
     render json: {
       items: @items.map { |item|
+
+        item.image = "../placeholder.png" if (item.image == '' || item.image.nil?)
+        item.save!
         {
           title: item.title,
           slug: item.slug,
