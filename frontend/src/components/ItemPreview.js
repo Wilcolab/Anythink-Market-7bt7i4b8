@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import agent from "../agent";
 import { connect } from "react-redux";
 import { ITEM_FAVORITED, ITEM_UNFAVORITED } from "../constants/actionTypes";
+import "../custom.scss";
 
 const mapDispatchToProps = (dispatch) => ({
   favorite: (slug) =>
@@ -29,6 +30,18 @@ const ItemPreview = (props) => {
     }
   };
 
+  if (item.seller.isVerified) {
+    return (
+      <div class="verified-seller">
+        <img
+        src="../verified_seller.svg"
+        alt={item.seller.isVerified}
+        />
+      <p>TOP SELLER</p>
+    </div>
+    )
+  }
+
   return (
     <div
       className="card bg-dark border-light p-3"
@@ -46,14 +59,23 @@ const ItemPreview = (props) => {
           <h3 className="card-title">{item.title}</h3>
           <p className="card-text crop-text-3">{item.description}</p>
         </Link>
-        <div className="d-flex flex-row align-items-center pt-2 item-footer">
-          <Link to={`/@${item.seller.username}`} className="flex-grow-1">
+        <div className="d-flex align-items-center pt-2 item-footer">
+          <Link to={`/@${item.seller.username}`}>
             <img
               src={item.seller.image}
               alt={item.seller.username}
               className="user-pic rounded-circle pr-1"
             />
           </Link>
+            {(item.seller.isVerified) ?
+              <span className="d-flex flex-row flex-grow-1 align-items-center">
+                <img src="../verified_seller.svg"
+                    alt={item.seller.isVerified}
+                    className="mt-1"
+                />
+                <p className="mt-3 px-2 text-white">TOP SELLER</p>
+              </span> : ""
+            }
           <button className="btn btn-outline-secondary" onClick={handleClick}>
             <i className="ion-heart"></i> {item.favoritesCount}
           </button>

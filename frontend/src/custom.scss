@@ -59,3 +59,14 @@ body {
 .user-info {
   min-width: 800px;
 }
+
+.verified-seller {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  min-width: 300px !important;
+}
