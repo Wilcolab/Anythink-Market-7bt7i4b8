@@ -29,7 +29,6 @@ class ItemsController < ApplicationController
           seller: {
             username: item.user.username,
             bio: item.user.bio,
-            isVerified: item.user.isVerified,
             image: item.user.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
             following: signed_in? ? current_user.following?(item.user) : false,
           },
